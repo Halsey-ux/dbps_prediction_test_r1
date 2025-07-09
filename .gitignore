@@ -21,13 +21,13 @@ wheels/
 .installed.cfg
 *.egg
 
-# PyTorch模型文件
-*.pth
-*.pt
+# PyTorch模型文件（但允许训练好的模型）
+# *.pth  
+# *.pt
 
-# 训练生成的文件
-transformer_model.pth
-vocabulary.json
+# 训练生成的文件（云端部署需要这些文件）
+# transformer_model.pth
+# vocabulary.json
 
 # 环境配置
 .env
