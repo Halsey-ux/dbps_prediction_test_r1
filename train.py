@@ -10,6 +10,7 @@ import json
 import os
 from tqdm import tqdm
 from functools import partial
+from typing import Optional
 
 # 导入自定义模块
 from utils import SMILESVocabulary, collate_fn, save_vocab, create_causal_mask
@@ -44,7 +45,7 @@ def train_model(
     batch_size: int = 4,
     num_epochs: int = 100,
     learning_rate: float = 0.0001,
-    device: str = None
+    device: Optional[str] = None
 ):
     """
     训练ReactionTransformer模型

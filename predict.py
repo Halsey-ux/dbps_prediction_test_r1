@@ -5,7 +5,7 @@
 import torch
 import torch.nn.functional as F
 import os
-from typing import List, Tuple
+from typing import List, Tuple, Optional
 
 # 导入自定义模块
 from utils import SMILESVocabulary, load_vocab, encode_conditions, create_padding_mask
@@ -15,7 +15,7 @@ from model import ReactionTransformer
 class ReactionPredictor:
     """反应产物预测器"""
     
-    def __init__(self, model_path: str, vocab_path: str, device: str = None):
+    def __init__(self, model_path: str, vocab_path: str, device: Optional[str] = None):
         """
         初始化预测器
         Args:
