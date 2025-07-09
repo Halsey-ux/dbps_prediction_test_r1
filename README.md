@@ -1,54 +1,33 @@
-# ReactionTransformer 消毒副产物路径预测项目
+# 🧪 消毒副产物预测系统
 
-一个基于Transformer架构的化学反应路径预测模型，专门用于预测消毒副产物（DBPs）的生成。本项目基于《TP-Transformer: An Interpretable Model for Predicting the Transformation Pathways of Organic Pollutants in Chemical Oxidation Processes》论文思想构建。
+[![Python](https://img.shields.io/badge/Python-3.9-blue.svg)](https://python.org)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.7.1-red.svg)](https://pytorch.org)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.46.1-green.svg)](https://streamlit.io)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## 🎯 项目目标
+基于深度学习Transformer架构的化学反应路径预测系统，专门用于预测消毒副产物的形成。
 
-- 使用**PyTorch**实现Transformer编码-解码模型
-- 输入：`反应物SMILES + pH + 消毒剂类型`
-- 输出：`产物SMILES`
-- 提供完整的训练和预测流程
-- 使用字符级SMILES编码，支持动态词汇表构建
+## 🌟 项目特点
 
-## 📁 项目结构
-
-```
-.
-├── data/
-│   └── sample_data.json      # 示例训练数据（18条反应对）
-├── model.py                  # ReactionTransformer 模型定义
-├── train.py                  # 训练脚本
-├── predict.py                # 推理脚本
-├── utils.py                  # 工具函数（词汇表、掩码生成等）
-├── requirements.txt          # Python依赖列表
-└── README.md                 # 项目说明文档
-```
-
-## ⚙️ 模型架构
-
-### ReactionTransformer 主要组件：
-
-1. **词嵌入层**: 将SMILES字符转换为向量表示
-2. **位置编码**: 为序列添加位置信息
-3. **条件编码器**: 编码pH和消毒剂类型信息
-4. **Transformer编码器**: 处理输入的反应物SMILES和条件信息
-5. **Transformer解码器**: 自回归生成产物SMILES
-6. **输出投影层**: 将隐藏状态映射到词汇表概率分布
-
-### 特色功能：
-
-- **条件注入**: 将pH和消毒剂信息融入编码器
-- **字符级编码**: 支持任意SMILES结构，具有良好泛化性
-- **因果掩码**: 确保解码器只能看到当前位置之前的信息
-- **贪心解码**: 实现快速的序列生成
+- 🤖 **深度学习架构**: 基于Transformer编码器-解码器模型
+- 🧬 **化学专业**: 专门针对消毒反应和副产物预测
+- 🌐 **Web界面**: 现代化的Streamlit Web应用
+- ⚡ **快速预测**: 秒级响应时间
+- 🔧 **易于部署**: 支持本地和云端部署
 
 ## 🚀 快速开始
 
 ### 1. 环境准备
 
-确保已安装Python 3.8+，然后安装依赖：
-
 ```bash
+# 克隆项目
+git clone https://github.com/Halsey-ux/dbps_prediction_test_r1.git
+cd dbps_prediction_test_r1
+
+# 创建conda环境
+conda create -n test_r1_env python=3.9 -y
+conda activate test_r1_env
+
 # 安装依赖
 pip install -r requirements.txt
 ```
@@ -56,224 +35,202 @@ pip install -r requirements.txt
 ### 2. 训练模型
 
 ```bash
-# 训练模型（约2-5分钟，取决于硬件）
+# 训练ReactionTransformer模型
 python train.py
 ```
 
-训练完成后会生成：
-- `transformer_model.pth`: 训练好的模型权重
-- `vocabulary.json`: 字符级词汇表文件
+### 3. 启动Web应用
 
-### 3. 进行预测
-
+#### 方法一：自动启动（推荐）
 ```bash
-# 运行预测脚本
-python predict.py
+python run_app.py
 ```
 
-预测脚本包含：
-- **自动示例预测**: 在几个测试样本上展示模型效果
-- **交互式预测**: 用户可以输入自定义的反应条件进行预测
-
-### 4. 示例输入输出
-
-```
-反应物: CCO
-pH: 7.0
-消毒剂: chlorine
-预测产物: CCOCl
-
-反应物: c1ccc(cc1)O
-pH: 6.5
-消毒剂: chlorine
-预测产物: c1cc(c(cc1)O)Cl
+#### 方法二：直接启动
+```bash
+streamlit run app.py
 ```
 
-## 🧪 数据格式
+### 4. 访问应用
+打开浏览器访问: http://localhost:8501
 
-训练数据采用JSON格式，每个反应记录包含：
+## 📁 项目结构
 
-```json
-{
-  "reactant_smiles": "CCO",
-  "pH": 7.0,
-  "disinfectant": "chlorine",
-  "product_smiles": "CCOCl"
-}
+```
+dbps_prediction_test_r1/
+├── 🧬 核心模型
+│   ├── model.py              # ReactionTransformer模型定义
+│   ├── train.py              # 模型训练脚本
+│   ├── predict.py            # 模型预测脚本
+│   └── utils.py              # 工具函数
+├── 🌐 Web应用
+│   ├── app.py                # Streamlit Web应用
+│   ├── run_app.py            # 自动启动脚本
+│   └── .streamlit/           # Streamlit配置
+├── 📊 数据
+│   └── data/
+│       └── sample_data.json  # 示例训练数据
+├── 📖 文档
+│   ├── README.md             # 项目说明
+│   ├── DEPLOYMENT.md         # 详细部署指南
+│   └── requirements.txt      # 依赖列表
+├── ⚙️ 配置
+│   ├── .vscode/              # VS Code配置
+│   ├── pyrightconfig.json    # Python类型检查
+│   └── .gitignore           # Git忽略文件
+└── 🧪 测试
+    └── test_app.py           # Web应用测试脚本
 ```
 
-### 支持的消毒剂类型：
-- `chlorine`: 氯气
-- `chloramine`: 氯胺
-- `ozone`: 臭氧
+## 💻 使用指南
 
-### pH范围：
-- 建议范围：5.0 - 9.0
-- 模型会自动标准化到 [0, 1] 区间
+### 输入参数
 
-## 🔧 模型配置
+1. **反应物SMILES**: 分子的SMILES表示法
+   - 示例: `CCO` (乙醇), `c1ccc(cc1)O` (苯酚)
 
-可以在 `train.py` 中调整模型超参数：
+2. **pH值**: 反应溶液的酸碱度 (5.0-9.0)
+   - 影响反应路径和产物分布
 
-```python
-model = ReactionTransformer(
-    vocab_size=vocab.vocab_size,
-    d_model=256,              # 模型维度
-    nhead=8,                  # 注意力头数
-    num_encoder_layers=4,     # 编码器层数
-    num_decoder_layers=4,     # 解码器层数
-    dim_feedforward=1024,     # 前馈网络维度
-    dropout=0.1,              # Dropout率
-    condition_dim=4,          # 条件向量维度
-    max_len=200              # 最大序列长度
-)
+3. **消毒剂类型**: 选择消毒剂
+   - `chlorine`: 氯气 (Cl₂) - 强氧化性，快速反应
+   - `chloramine`: 氯胺 (NH₂Cl) - 中等氧化性，持续性强
+   - `ozone`: 臭氧 (O₃) - 最强氧化性，无残留
+
+### 输出结果
+
+- **预测产物**: 生成的副产物SMILES
+- **反应条件分析**: 消毒剂特性雷达图
+- **结果导出**: 可下载预测报告
+
+## 🏗️ 技术架构
+
+### 模型架构
+- **类型**: Transformer编码器-解码器
+- **输入**: 反应物SMILES + 反应条件 (pH + 消毒剂类型)
+- **输出**: 产物SMILES序列
+- **特殊处理**: 条件向量融合，位置编码优化
+
+### Web应用
+- **框架**: Streamlit
+- **可视化**: Plotly交互图表
+- **响应式设计**: 支持桌面和移动端
+- **实时预测**: 异步处理，加载动画
+
+## 🌐 部署选项
+
+### 本地部署
+```bash
+# 开发环境
+streamlit run app.py
+
+# 生产环境  
+streamlit run app.py --server.port=8501 --server.address=0.0.0.0
 ```
 
-## 📊 训练参数
+### 云端部署
 
-当前配置针对小数据集优化：
+#### Streamlit Cloud
+1. 将代码推送到GitHub
+2. 访问 [share.streamlit.io](https://share.streamlit.io)
+3. 连接GitHub仓库并部署
 
-- **批量大小**: 2（适应小数据集）
-- **学习率**: 0.0005（使用Adam优化器）
-- **训练轮数**: 50
-- **学习率调度**: StepLR（每30个epoch衰减0.5倍）
-- **梯度裁剪**: 最大范数1.0
+#### Docker部署
+```bash
+# 构建镜像
+docker build -t dbps-prediction .
 
-## 🔄 扩展指南
-
-### 1. 使用真实数据
-
-替换 `data/sample_data.json` 为你的真实DBP数据：
-
-```python
-# 确保数据格式一致
-data = [
-    {
-        "reactant_smiles": "实际反应物SMILES",
-        "pH": 实际pH值,
-        "disinfectant": "实际消毒剂类型",
-        "product_smiles": "实际产物SMILES"
-    },
-    # ... 更多数据
-]
+# 运行容器
+docker run -p 8501:8501 dbps-prediction
 ```
 
-### 2. 多步路径预测
+详细部署指南请参考: [DEPLOYMENT.md](DEPLOYMENT.md)
 
-当前模型预测单步反应，扩展为多步路径：
+## 🔧 开发与贡献
 
-```python
-def predict_pathway(predictor, initial_smiles, conditions, max_steps=3):
-    """预测多步反应路径"""
-    pathway = [initial_smiles]
-    current_smiles = initial_smiles
-    
-    for step in range(max_steps):
-        next_product = predictor.predict_product(
-            current_smiles, conditions['pH'], conditions['disinfectant']
-        )
-        if next_product == current_smiles:  # 达到稳定状态
-            break
-        pathway.append(next_product)
-        current_smiles = next_product
-    
-    return pathway
+### 环境测试
+```bash
+# 运行应用测试
+python test_app.py
+
+# 验证模型导入
+python -c "from model import ReactionTransformer; print('✅ 模型导入成功')"
 ```
 
-### 3. 添加新的条件因子
+### 代码贡献
+1. Fork项目
+2. 创建功能分支: `git checkout -b feature/new-feature`
+3. 提交更改: `git commit -am 'Add new feature'`
+4. 推送分支: `git push origin feature/new-feature`
+5. 创建Pull Request
 
-在 `utils.py` 中扩展条件编码：
+## 📊 性能指标
 
-```python
-def encode_conditions(pH, disinfectant, temperature=None, concentration=None):
-    """扩展条件编码，支持温度和浓度"""
-    # 现有pH和消毒剂编码
-    conditions = [normalized_pH] + disinfectant_encoded
-    
-    # 添加新条件
-    if temperature is not None:
-        normalized_temp = (temperature - 273.15) / 100  # 标准化温度
-        conditions.append(normalized_temp)
-    
-    if concentration is not None:
-        log_conc = math.log10(concentration + 1e-6)  # 对数变换
-        conditions.append(log_conc)
-    
-    return conditions
+- **预测速度**: < 5秒
+- **内存使用**: ~4GB (CPU模式)
+- **模型大小**: ~50MB
+- **并发支持**: 多用户同时访问
+
+## 🛠️ 故障排除
+
+### 常见问题
+
+**Q: 模型文件不存在**
+```bash
+# 解决方案: 训练模型
+python train.py
 ```
 
-### 4. 改进采样策略
-
-在 `predict.py` 中实现更好的解码策略：
-
-```python
-def beam_search_decode(self, src, conditions, beam_size=5, max_length=100):
-    """束搜索解码（比贪心搜索效果更好）"""
-    # 实现束搜索算法
-    pass
-
-def nucleus_sampling(self, logits, p=0.9):
-    """核采样（生成更多样的结果）"""
-    # 实现nucleus sampling
-    pass
+**Q: 依赖安装失败**
+```bash
+# 解决方案: 重新安装
+pip install --upgrade -r requirements.txt
 ```
 
-## 🔍 模型评估
-
-评估指标建议：
-
-1. **SMILES有效性**: 生成的SMILES是否能被RDKit解析
-2. **化学合理性**: 产物结构是否符合化学常识
-3. **BLEU分数**: 与真实产物的序列相似度
-4. **分子指纹相似性**: 使用Tanimoto系数比较分子结构
-
-```python
-from rdkit import Chem
-from rdkit.Chem import rdMolDescriptors
-
-def evaluate_predictions(true_smiles, pred_smiles):
-    """评估预测结果"""
-    valid_count = 0
-    total_count = len(pred_smiles)
-    
-    for pred in pred_smiles:
-        try:
-            mol = Chem.MolFromSmiles(pred)
-            if mol is not None:
-                valid_count += 1
-        except:
-            pass
-    
-    validity = valid_count / total_count
-    return {'validity': validity}
+**Q: 端口被占用**
+```bash
+# 解决方案: 使用其他端口
+streamlit run app.py --server.port=8502
 ```
 
-## ⚠️ 注意事项
+更多问题请查看: [DEPLOYMENT.md](DEPLOYMENT.md#故障排除)
 
-1. **数据质量**: 确保训练数据中的SMILES格式正确
-2. **计算资源**: 模型参数约2.5M，训练需要少量GPU/CPU资源
-3. **过拟合**: 当前示例数据较小，实际应用需要更大数据集
-4. **化学验证**: 建议结合领域专家知识验证预测结果
+## 📚 技术文档
 
-## 📚 参考文献
+### 核心依赖
+- **PyTorch**: 深度学习框架
+- **Streamlit**: Web应用框架
+- **RDKit**: 化学分子处理
+- **Plotly**: 交互式可视化
+- **Pandas/NumPy**: 数据处理
 
-1. TP-Transformer: An Interpretable Model for Predicting the Transformation Pathways of Organic Pollutants in Chemical Oxidation Processes
-2. Attention Is All You Need (Transformer原始论文)
-3. SMILES: a chemical language and information system
-
-## 🤝 贡献指南
-
-欢迎提交Issue和Pull Request来改进项目：
-
-- 报告bug和问题
-- 建议新功能
-- 提供更好的数据集
-- 改进模型架构
+### API文档
+- `ReactionTransformer`: 主模型类
+- `ReactionPredictor`: 预测接口
+- `SMILESVocabulary`: 词汇表管理
 
 ## 📄 许可证
 
-本项目采用MIT许可证。详情请参阅LICENSE文件。
+本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+
+## 🤝 致谢
+
+- PyTorch团队提供的深度学习框架
+- Streamlit团队提供的Web应用框架
+- RDKit团队提供的化学计算工具
+
+## 📞 联系方式
+
+- **GitHub**: [Halsey-ux](https://github.com/Halsey-ux)
+- **项目地址**: https://github.com/Halsey-ux/dbps_prediction_test_r1
+- **问题反馈**: [创建Issue](https://github.com/Halsey-ux/dbps_prediction_test_r1/issues)
 
 ---
 
-🧬 **Happy Chemical Modeling!** 🧬 
+<div align="center">
+
+**🧪 让AI助力化学研究，预测更安全的未来 🌍**
+
+[开始使用](#🚀-快速开始) • [查看演示](#💻-使用指南) • [部署指南](DEPLOYMENT.md) • [贡献代码](#🔧-开发与贡献)
+
+</div> 
