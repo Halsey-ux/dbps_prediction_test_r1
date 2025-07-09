@@ -1,0 +1,110 @@
+[
+  {
+    "reactant_smiles": "CCO",
+    "pH": 7.0,
+    "disinfectant": "chlorine",
+    "product_smiles": "CCOCl"
+  },
+  {
+    "reactant_smiles": "c1ccc(cc1)O",
+    "pH": 6.5,
+    "disinfectant": "chlorine",
+    "product_smiles": "c1cc(c(cc1)O)Cl"
+  },
+  {
+    "reactant_smiles": "CC(C)O",
+    "pH": 7.5,
+    "disinfectant": "chloramine",
+    "product_smiles": "CC(C)OCl"
+  },
+  {
+    "reactant_smiles": "Nc1ccccc1",
+    "pH": 6.0,
+    "disinfectant": "chlorine",
+    "product_smiles": "Nc1ccc(cc1)Cl"
+  },
+  {
+    "reactant_smiles": "CC(=O)O",
+    "pH": 8.0,
+    "disinfectant": "ozone",
+    "product_smiles": "CC(=O)OO"
+  },
+  {
+    "reactant_smiles": "c1ccccc1",
+    "pH": 7.0,
+    "disinfectant": "chlorine",
+    "product_smiles": "c1ccc(cc1)Cl"
+  },
+  {
+    "reactant_smiles": "CCCCCO",
+    "pH": 6.8,
+    "disinfectant": "chlorine",
+    "product_smiles": "CCCCCOCl"
+  },
+  {
+    "reactant_smiles": "c1ccc2c(c1)ccc(c2)O",
+    "pH": 7.2,
+    "disinfectant": "chloramine",
+    "product_smiles": "c1ccc2c(c1)ccc(c2)OCl"
+  },
+  {
+    "reactant_smiles": "CCN",
+    "pH": 8.5,
+    "disinfectant": "chlorine",
+    "product_smiles": "CCNCl"
+  },
+  {
+    "reactant_smiles": "c1cc(ccc1O)C",
+    "pH": 6.2,
+    "disinfectant": "chlorine",
+    "product_smiles": "c1cc(ccc1O)CCl"
+  },
+  {
+    "reactant_smiles": "CCCCO",
+    "pH": 7.8,
+    "disinfectant": "ozone",
+    "product_smiles": "CCCCOO"
+  },
+  {
+    "reactant_smiles": "c1ccc(cc1)N",
+    "pH": 5.5,
+    "disinfectant": "chloramine",
+    "product_smiles": "c1ccc(cc1)NCl"
+  },
+  {
+    "reactant_smiles": "CC(C)(C)O",
+    "pH": 7.3,
+    "disinfectant": "chlorine",
+    "product_smiles": "CC(C)(C)OCl"
+  },
+  {
+    "reactant_smiles": "c1cc(cc(c1)O)O",
+    "pH": 6.7,
+    "disinfectant": "chlorine",
+    "product_smiles": "c1cc(cc(c1)O)OCl"
+  },
+  {
+    "reactant_smiles": "CCCO",
+    "pH": 8.2,
+    "disinfectant": "ozone",
+    "product_smiles": "CCCOO"
+  },
+  {
+    "reactant_smiles": "c1ccc(cc1)C",
+    "pH": 7.1,
+    "disinfectant": "chlorine",
+    "product_smiles": "c1ccc(cc1)CCl"
+  },
+  {
+    "reactant_smiles": "CC=O",
+    "pH": 6.9,
+    "disinfectant": "chloramine",
+    "product_smiles": "CC(=O)Cl"
+  },
+  {
+    "reactant_smiles": "c1cc(ccc1N)O",
+    "pH": 5.8,
+    "disinfectant": "chlorine",
+    "product_smiles": "c1cc(ccc1NCl)O"
+  }
+] 
