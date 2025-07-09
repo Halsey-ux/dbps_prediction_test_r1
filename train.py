@@ -148,8 +148,8 @@ def train_model(
             )
             
             # 计算损失
-            output_flat = output.view(-1, vocab.vocab_size)
-            target_flat = tgt_output.view(-1)
+            output_flat = output.reshape(-1, vocab.vocab_size)
+            target_flat = tgt_output.reshape(-1)
             loss = criterion(output_flat, target_flat)
             
             # 反向传播
