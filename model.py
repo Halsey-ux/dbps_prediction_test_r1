@@ -8,7 +8,6 @@ import torch.nn.functional as F
 import math
 from typing import Optional, Tuple
 
-
 class PositionalEncoding(nn.Module):
     """位置编码模块"""
     
@@ -44,7 +43,12 @@ class PositionalEncoding(nn.Module):
         Returns:
             添加位置编码后的张量
         """
-        return x + self.pe[:x.size(0), :]
+        # 获取序列长度和批次大小
+        seq_len, batch_size = x.size(0), x.size(1)
+        # 提取对应长度的位置编码并扩展到匹配批次大小
+        pe_tensor = torch.as_tensor(self.pe)  # 显式转换为tensor类型
+        pe_slice = pe_tensor[:seq_len, :].expand(-1, batch_size, -1)
+        return x + pe_slice
 
 
 class ConditionEncoder(nn.Module):

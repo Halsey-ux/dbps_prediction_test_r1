@@ -1,0 +1,10 @@
+{
+    "venvPath": "E:\\Conda\\envs",
+    "venv": "test_r1_env",
+    "pythonPath": "E:\\Conda\\envs\\test_r1_env\\python.exe",
+    "extraPaths": [
+        "E:\\Conda\\envs\\test_r1_env\\Lib\\site-packages"
+    ],
+    "typeCheckingMode": "basic",
+    "reportMissingImports": "warning"
+} 

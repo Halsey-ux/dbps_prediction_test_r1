@@ -61,8 +61,10 @@ def train_model(
     
     # 设置设备
     if device is None:
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    print(f"使用设备: {device}")
+        device_obj = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    else:
+        device_obj = torch.device(device)
+    print(f"使用设备: {device_obj}")
     
     # 1. 加载数据
     print("正在加载数据...")
@@ -99,7 +101,7 @@ def train_model(
         max_len=200
     )
     
-    model = model.to(device)
+    model = model.to(device_obj)
     print(f"模型参数数量: {sum(p.numel() for p in model.parameters()):,}")
     
     # 5. 设置优化器和损失函数
@@ -122,16 +124,16 @@ def train_model(
         
         for batch in pbar:
             # 移动数据到设备
-            src = batch['src'].to(device)
-            tgt_input = batch['tgt_input'].to(device)
-            tgt_output = batch['tgt_output'].to(device)
-            conditions = batch['conditions'].to(device)
-            src_padding_mask = batch['src_padding_mask'].to(device)
-            tgt_padding_mask = batch['tgt_padding_mask'].to(device)
+            src = batch['src'].to(device_obj)
+            tgt_input = batch['tgt_input'].to(device_obj)
+            tgt_output = batch['tgt_output'].to(device_obj)
+            conditions = batch['conditions'].to(device_obj)
+            src_padding_mask = batch['src_padding_mask'].to(device_obj)
+            tgt_padding_mask = batch['tgt_padding_mask'].to(device_obj)
             
             # 创建因果掩码（防止解码器看到未来信息）
             tgt_len = tgt_input.size(1)
-            tgt_mask = create_causal_mask(tgt_len).to(device)
+            tgt_mask = create_causal_mask(tgt_len).to(device_obj)
             
             # 前向传播
             optimizer.zero_grad()
