@@ -15,10 +15,12 @@ maxUploadSize = 200
 # 禁用文件监控（生产环境）
 fileWatcherType = "none"
 
+# 云部署优化
+headless = true
+
 [browser]
 # 浏览器配置
 gatherUsageStats = false
-serverAddress = "localhost"
 
 [theme]
 # 主题配置
@@ -32,4 +34,4 @@ font = "sans serif"
 # 客户端配置
 caching = true
 displayEnabled = true
-showErrorDetails = true 
+showErrorDetails = false 

@@ -132,16 +132,25 @@ def main():
         if predictor is None:
             st.error(status_msg)
             st.markdown("""
-            ### 🚀 快速开始
-            1. 运行 `python train.py` 训练模型
-            2. 确保生成了以下文件：
-               - `transformer_model.pth`
-               - `vocabulary.json`
-            3. 刷新页面
+            ### 🚀 模型状态
+            模型文件尚未加载。这通常发生在：
+            - 首次部署时
+            - 模型文件未正确上传
+            
+            ### 📋 系统功能
+            - ✅ Web界面正常运行
+            - ✅ 输入验证功能
+            - ❌ 预测功能（需要模型文件）
+            
+            ### 🔧 解决方案
+            1. 运行训练脚本生成模型文件
+            2. 确保模型文件已正确上传
+            3. 刷新页面重新加载
             """)
-            return
+            model_available = False
         else:
             st.success(status_msg)
+            model_available = True
         
         st.markdown("---")
         
@@ -255,7 +264,12 @@ def main():
     with col2:
         st.markdown("## 🎯 预测结果")
         
-        if submitted and predictor is not None:
+        if submitted:
+            if not model_available:
+                st.error("⚠️ 模型未加载，无法进行预测")
+                st.info("请等待模型文件加载完成后重试")
+                return
+                
             if not reactant_smiles.strip():
                 st.error("请输入有效的反应物SMILES!")
                 return
@@ -265,7 +279,8 @@ def main():
                 time.sleep(1)  # 模拟处理时间
                 
                 try:
-                    # 执行预测
+                    # 执行预测 (此时模型必须可用)
+                    assert predictor is not None, "模型未正确加载"
                     predicted_smiles = predictor.predict_product(
                         reactant_smiles=reactant_smiles,
                         pH=pH,
