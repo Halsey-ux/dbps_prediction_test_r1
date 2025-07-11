@@ -1,0 +1,52 @@
+# GitHub Pages Jekyll配置
+title: 消毒副产物预测系统
+description: 基于深度学习的化学反应预测平台
+author: 消毒副产物预测系统开发团队
+email: your.email@example.com
+github_username: Halsey-ux
+repository: dbps_prediction_test_r1
+
+# GitHub Pages设置
+baseurl: "/dbps_prediction_test_r1"
+url: "https://halsey-ux.github.io"
+
+# 主题设置
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# 导航菜单
+header_pages:
+  - index.html
+  - README.md
+
+# 社交链接
+social:
+  - platform: github
+    user_url: "https://github.com/Halsey-ux/dbps_prediction_test_r1"
+  - platform: email
+    user_url: "mailto:your.email@example.com"
+
+# SEO设置
+lang: zh-CN
+timezone: Asia/Shanghai
+
+# 其他设置
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+paginate: 10
+
+# 排除文件
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/
+  - "*.yml"
+  - "*.yaml" 
