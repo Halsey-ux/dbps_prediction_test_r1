@@ -105,6 +105,11 @@ class ReactionPredictor:
                 src_key_padding_mask=src_padding_mask
             )
             
+            # 创建用于解码的memory掩码（因为在encode中添加了条件向量，所以长度+1）
+            memory_padding_mask = torch.zeros(src_padding_mask.size(0), src_padding_mask.size(1) + 1, 
+                                            dtype=torch.bool, device=self.device)
+            memory_padding_mask[:, 1:] = src_padding_mask  # 第一个位置（条件向量）不掩盖
+            
             # 3. 贪心解码
             # 初始化目标序列（只包含SOS标记）
             tgt = torch.tensor([[self.vocab.get_sos_idx()]], dtype=torch.long).to(self.device)
@@ -120,7 +125,7 @@ class ReactionPredictor:
                     tgt=tgt,
                     memory=memory,
                     tgt_mask=tgt_mask,
-                    memory_key_padding_mask=src_padding_mask
+                    memory_key_padding_mask=memory_padding_mask
                 )
                 
                 # 获取下一个词的概率分布

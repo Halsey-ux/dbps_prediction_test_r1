@@ -122,12 +122,15 @@ def main():
     </div>
     """, unsafe_allow_html=True)
     
+    # 加载模型 (全局使用)
+    predictor, status_msg = load_model()
+    
     # 侧边栏
     with st.sidebar:
         st.markdown("## ⚙️ 模型设置")
         
-        # 模型状态
-        predictor, status_msg = load_model()
+        # 模型状态显示
+        model_available = predictor is not None
         
         if predictor is None:
             st.error(status_msg)
@@ -147,10 +150,8 @@ def main():
             2. 确保模型文件已正确上传
             3. 刷新页面重新加载
             """)
-            model_available = False
         else:
             st.success(status_msg)
-            model_available = True
         
         st.markdown("---")
         
@@ -197,6 +198,27 @@ def main():
     with col1:
         st.markdown("## 📝 输入反应条件")
         
+        # 示例选择（在表单外部）
+        st.markdown("### 🧬 选择示例分子")
+        examples = {
+            "乙醇 (CCO)": "CCO",
+            "苯酚 (c1ccc(cc1)O)": "c1ccc(cc1)O", 
+            "异丙醇 (CC(C)O)": "CC(C)O",
+            "苯胺 (Nc1ccccc1)": "Nc1ccccc1",
+            "苯 (c1ccccc1)": "c1ccccc1",
+            "自定义输入": ""
+        }
+        
+        selected_example = st.selectbox(
+            "选择示例分子或自定义输入",
+            options=list(examples.keys()),
+            index=0,
+            help="选择预设的示例分子，或选择'自定义输入'来手动输入SMILES"
+        )
+        
+        # 根据选择设置默认值
+        default_smiles = examples[selected_example] if selected_example != "自定义输入" else "CCO"
+        
         # 输入表单
         with st.form("prediction_form"):
             st.markdown("### 反应物信息")
@@ -204,28 +226,9 @@ def main():
             # SMILES输入
             reactant_smiles = st.text_input(
                 "反应物SMILES",
-                value="CCO",
+                value=default_smiles,
                 help="输入反应物的SMILES表示法，例如：CCO (乙醇)"
             )
-            
-            # 示例SMILES
-            st.markdown("**常用示例:**")
-            examples = {
-                "乙醇 (CCO)": "CCO",
-                "苯酚 (c1ccc(cc1)O)": "c1ccc(cc1)O", 
-                "异丙醇 (CC(C)O)": "CC(C)O",
-                "苯胺 (Nc1ccccc1)": "Nc1ccccc1",
-                "苯 (c1ccccc1)": "c1ccccc1"
-            }
-            
-            selected_example = st.selectbox(
-                "选择示例分子",
-                options=list(examples.keys()),
-                index=0
-            )
-            
-            if st.button("使用选中示例"):
-                reactant_smiles = examples[selected_example]
             
             st.markdown("### 反应条件")
             

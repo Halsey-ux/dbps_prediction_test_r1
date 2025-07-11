@@ -1,315 +1,240 @@
-# 🧪 消毒副产物预测系统 (本地版)
+# 消毒副产物预测系统
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://python.org)
-[![PyTorch](https://img.shields.io/badge/PyTorch-2.0+-red.svg)](https://pytorch.org)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.28+-green.svg)](https://streamlit.io)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+<div align="center">
+  <h3>🧪 基于深度学习的化学反应预测平台</h3>
+  <p>专为水处理中的消毒副产物预测而设计</p>
+  
+  ![PyTorch](https://img.shields.io/badge/PyTorch-2.5.1-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
+  ![Python](https://img.shields.io/badge/Python-3.9-3776AB?style=for-the-badge&logo=python&logoColor=white)
+  ![Streamlit](https://img.shields.io/badge/Streamlit-1.46.1-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)
+  ![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)
+  
+  [🌐 在线演示](https://yourusername.github.io/disinfection-byproduct-prediction/) | [📚 文档](docs/) | [🚀 快速开始](#快速开始)
+</div>
 
-基于深度学习Transformer架构的化学反应路径预测系统，专门用于预测消毒副产物的形成。**专为本地部署优化**。
+## 📋 项目简介
 
-## 🌟 项目特点
+消毒副产物预测系统是基于Transformer深度学习架构开发的化学反应路径预测平台。该系统专门用于预测水处理过程中不同消毒剂（氯气、氯胺、臭氧）与有机物反应产生的副产物，为水处理行业提供科学决策支持。
 
-- 🤖 **深度学习架构**: 基于Transformer编码器-解码器模型
-- 🧬 **化学专业**: 专门针对消毒反应和副产物预测
-- 🌐 **本地Web界面**: 现代化的Streamlit Web应用
-- ⚡ **快速预测**: 秒级响应时间
-- 🔧 **简易部署**: 一键本地安装和启动
-- 🛠️ **开发友好**: 支持开发模式和热重载
+### ✨ 核心特性
+
+- 🧠 **深度学习引擎**: 基于Transformer架构，包含7,484,046个参数
+- 🧪 **多元素支持**: 支持氯气、氯胺、臭氧等多种消毒剂类型
+- 📊 **可视化分析**: 提供交互式图表和结果展示
+- 🌐 **Web应用**: 用户友好的Streamlit界面
+- ⚡ **高效预测**: 2-5秒内完成单次预测
+- 🔧 **本地部署**: 支持本地环境运行
 
 ## 🚀 快速开始
 
-### 🎯 **方法一：一键安装（推荐）**
+### 环境要求
+
+- Python 3.9+
+- Conda (推荐)
+- 2GB+ RAM
+- 1GB+ 存储空间
+
+### 方法一：Conda环境（推荐）
 
 ```bash
 # 1. 克隆项目
-git clone https://github.com/Halsey-ux/dbps_prediction_test_r1.git
-cd dbps_prediction_test_r1
+git clone https://github.com/yourusername/disinfection-byproduct-prediction.git
+cd disinfection-byproduct-prediction
 
-# 2. 运行一键安装脚本
-python setup_local.py
+# 2. 创建conda环境
+conda env create -f environment.yml
+conda activate test_r1_env
 
 # 3. 启动应用
 python run_app.py
 ```
 
-### 🛠️ **方法二：手动安装**
-
-#### 1. 环境准备
+### 方法二：pip安装
 
 ```bash
-# 推荐使用Conda创建环境
-conda create -n test_r1_env python=3.12 -y
-conda activate test_r1_env
+# 1. 克隆项目
+git clone https://github.com/yourusername/disinfection-byproduct-prediction.git
+cd disinfection-byproduct-prediction
 
-# 或使用venv
-python -m venv test_r1_env
-# Windows:
-test_r1_env\Scripts\activate
-# macOS/Linux:
-source test_r1_env/bin/activate
-```
-
-#### 2. 安装依赖
-
-```bash
-# 升级pip
-pip install --upgrade pip
-
-# 安装项目依赖
+# 2. 安装依赖
 pip install -r requirements.txt
+
+# 3. 启动应用
+streamlit run app.py
 ```
 
-#### 3. 训练模型
+### 访问应用
 
-```bash
-# 训练ReactionTransformer模型
-python train.py
+打开浏览器访问 [http://localhost:8501](http://localhost:8501)
+
+## 📊 系统架构
+
+```
+消毒副产物预测系统
+├── 前端界面 (Streamlit)
+│   ├── 输入参数设置
+│   ├── 可视化展示
+│   └── 结果导出
+├── 预测引擎 (PyTorch)
+│   ├── Transformer模型
+│   ├── SMILES编码器
+│   └── 反应条件编码
+├── 数据处理
+│   ├── 词汇表管理
+│   ├── 数据预处理
+│   └── 结果后处理
+└── 模型训练
+    ├── 数据加载
+    ├── 模型训练
+    └── 评估验证
 ```
 
-#### 4. 启动应用
+## 🛠️ 技术栈
 
-```bash
-# 普通模式
-python run_app.py
+### 核心框架
+- **PyTorch 2.5.1** - 深度学习框架
+- **Streamlit 1.46.1** - Web应用框架
+- **Plotly** - 数据可视化
 
-# 开发模式（自动重载）
-python run_app.py --dev
+### 数据处理
+- **Pandas** - 数据处理
+- **NumPy** - 数值计算
+- **scikit-learn** - 机器学习工具
 
-# 或使用便捷脚本
-# Windows: 双击 start_app.bat
-# macOS/Linux: ./start_app.sh
+### 模型架构
+- **Transformer** - 序列到序列模型
+- **SMILES编码** - 化学分子表示
+- **条件编码** - 反应条件向量化
+
+## 📚 使用指南
+
+### 1. 基本预测
+
+```python
+from predict import ReactionPredictor
+
+# 初始化预测器
+predictor = ReactionPredictor(
+    model_path="transformer_model.pth",
+    vocab_path="vocabulary.json"
+)
+
+# 进行预测
+result = predictor.predict_product(
+    reactant_smiles="CCO",      # 乙醇
+    pH=7.0,                     # 中性pH
+    disinfectant="chlorine"     # 氯气消毒
+)
+
+print(f"预测产物: {result}")
 ```
 
-#### 5. 访问应用
-🔗 打开浏览器访问: http://localhost:8501
+### 2. 批量预测
+
+```python
+# 批量预测
+inputs = [
+    ("CCO", 7.0, "chlorine"),
+    ("c1ccc(cc1)O", 6.5, "chlorine"),
+    ("CC(C)O", 7.5, "chloramine")
+]
+
+results = predictor.predict_batch(inputs)
+```
+
+### 3. Web界面使用
+
+1. 启动应用：`python run_app.py`
+2. 在浏览器中打开：`http://localhost:8501`
+3. 输入反应物SMILES字符串
+4. 设置pH值（5.0-9.0）
+5. 选择消毒剂类型
+6. 点击预测按钮获取结果
 
 ## 📁 项目结构
 
 ```
-dbps_prediction_test_r1/
-├── 🧬 核心AI模块
-│   ├── model.py              # ReactionTransformer模型定义
-│   ├── train.py              # 模型训练脚本
-│   ├── predict.py            # 模型预测脚本
-│   └── utils.py              # 工具函数库
-├── 🌐 Web应用模块
-│   ├── app.py                # Streamlit Web应用
-│   ├── run_app.py            # 本地启动脚本
-│   └── test_app.py           # 应用测试脚本
-├── 📊 数据与模型
-│   ├── data/
-│   │   └── sample_data.json  # 示例训练数据
-│   ├── transformer_model.pth # 训练好的模型权重
-│   └── vocabulary.json       # SMILES词汇表
-├── ⚙️ 环境配置
-│   ├── requirements.txt      # Python依赖
-│   ├── setup_local.py        # 本地环境安装脚本
-│   ├── start_app.bat         # Windows启动脚本
-│   └── start_app.sh          # macOS/Linux启动脚本
-└── 📖 文档
-    ├── README.md             # 项目说明（本文件）
-    └── docs/                 # 详细文档
+disinfection-byproduct-prediction/
+├── app.py                    # Streamlit Web应用
+├── model.py                  # Transformer模型定义
+├── predict.py                # 预测引擎
+├── train.py                  # 模型训练脚本
+├── utils.py                  # 工具函数
+├── run_app.py                # 应用启动脚本
+├── test_app.py               # 测试脚本
+├── requirements.txt          # pip依赖
+├── environment.yml           # conda环境配置
+├── data/                     # 数据文件夹
+│   └── sample_data.json      # 示例数据
+├── docs/                     # 文档和静态页面
+│   ├── index.html            # GitHub Pages首页
+│   └── DEPLOY.md             # 部署说明
+├── transformer_model.pth     # 预训练模型
+├── vocabulary.json           # 词汇表
+└── README.md                 # 项目说明
 ```
 
-## 💻 使用指南
+## 🔧 模型训练
 
-### 🎮 Web界面操作
-
-1. **输入反应条件**
-   - **反应物SMILES**: 分子的SMILES表示法
-     - 示例: `CCO` (乙醇), `c1ccc(cc1)O` (苯酚)
-   - **pH值**: 反应溶液的酸碱度 (5.0-9.0)
-   - **消毒剂类型**: 
-     - `chlorine`: 氯气 (Cl₂) - 强氧化性，快速反应
-     - `chloramine`: 氯胺 (NH₂Cl) - 中等氧化性，持续性强
-     - `ozone`: 臭氧 (O₃) - 最强氧化性，无残留
-
-2. **查看预测结果**
-   - 预测的副产物SMILES
-   - 反应条件分析图表
-   - 置信度评估
-
-3. **导出结果**
-   - 下载预测报告
-   - 保存参数配置
-
-### 🔧 开发模式
+如果您需要重新训练模型：
 
 ```bash
-# 启用开发模式（文件变更自动重载）
-python run_app.py --dev
-```
+# 1. 准备训练数据
+# 确保 data/sample_data.json 包含训练数据
 
-开发模式特性：
-- 📝 代码修改自动重载
-- 🔍 详细错误信息
-- 🚀 快速开发迭代
-
-### 🧪 模型训练与测试
-
-```bash
-# 训练新模型
+# 2. 开始训练
 python train.py
 
-# 测试模型性能
+# 3. 查看训练结果
+# 训练完成后会生成 transformer_model.pth 和 vocabulary.json
+```
+
+## 🧪 测试
+
+```bash
+# 运行基本测试
+python test_app.py
+
+# 测试预测功能
 python predict.py
-
-# 测试Web应用
-python test_app.py
 ```
 
-## 🏗️ 技术架构
+## 📈 模型性能
 
-### 🤖 AI模型架构
-- **类型**: Transformer编码器-解码器
-- **输入**: 反应物SMILES + 反应条件 (pH + 消毒剂类型)
-- **输出**: 产物SMILES序列
-- **特殊处理**: 条件向量融合，位置编码优化
+- **参数数量**: 7,484,046
+- **词汇表大小**: 14个化学字符
+- **支持的消毒剂**: 氯气、氯胺、臭氧
+- **pH范围**: 5.0-9.0
+- **预测速度**: 2-5秒/样本（CPU）
 
-### 🌐 Web应用架构
-- **框架**: Streamlit (本地优化)
-- **端口管理**: 自动检测可用端口
-- **浏览器集成**: 自动打开浏览器
-- **热重载**: 开发模式支持
+## 🤝 贡献指南
 
-### 📊 核心技术栈
-- **🧠 AI框架**: PyTorch 2.0+
-- **🌐 Web框架**: Streamlit 1.28+  
-- **📊 数据处理**: NumPy, Pandas
-- **📈 可视化**: Plotly
-- **🔧 环境**: Python 3.8+, Conda推荐
+我们欢迎社区贡献！请遵循以下步骤：
 
-## 🛠️ 高级功能
-
-### 📊 性能监控
-- **内存使用**: ~2-4GB (取决于模型大小)
-- **预测速度**: < 3秒
-- **并发支持**: 单用户本地模式
-
-### 🎯 自定义配置
-- **模型参数**: 修改 `model.py` 中的架构参数
-- **训练配置**: 调整 `train.py` 中的超参数
-- **界面设置**: 自定义 `app.py` 中的UI组件
-
-### 🧪 批量预测
-```python
-from predict import ReactionPredictor
-
-# 加载预测器
-predictor = ReactionPredictor("transformer_model.pth", "vocabulary.json")
-
-# 批量预测
-inputs = [
-    ("CCO", 7.0, "chlorine"),
-    ("c1ccccc1", 6.5, "ozone")
-]
-results = predictor.predict_batch(inputs)
-```
-
-## 🛠️ 故障排除
-
-### 常见问题
-
-**Q: 端口8501被占用**
-```bash
-# 脚本会自动选择其他可用端口
-# 或手动指定端口
-streamlit run app.py --server.port=8502
-```
-
-**Q: 模型加载失败**
-```bash
-# 重新训练模型
-python train.py
-
-# 检查文件完整性
-python test_app.py
-```
-
-**Q: 依赖安装失败**
-```bash
-# 更新pip和setuptools
-pip install --upgrade pip setuptools
-
-# 重新安装依赖
-pip install -r requirements.txt
-```
-
-**Q: 内存不足**
-- 关闭其他应用程序
-- 减少模型批处理大小
-- 使用CPU模式而非GPU
-
-## 🎯 开发与贡献
-
-### 🔧 开发环境搭建
-```bash
-# 1. 克隆项目
-git clone https://github.com/Halsey-ux/dbps_prediction_test_r1.git
-cd dbps_prediction_test_r1
-
-# 2. 安装开发环境
-python setup_local.py
-
-# 3. 启动开发模式
-python run_app.py --dev
-```
-
-### 🧪 测试
-```bash
-# 运行所有测试
-python test_app.py
-
-# 测试模型推理
-python predict.py
-
-# 验证模型导入
-python -c "from model import ReactionTransformer; print('✅ 模型导入成功')"
-```
-
-### 📝 贡献指南
-1. Fork项目
-2. 创建功能分支: `git checkout -b feature/new-feature`
-3. 提交更改: `git commit -am 'Add new feature'`
-4. 推送分支: `git push origin feature/new-feature`
-5. 创建Pull Request
-
-## 📚 更多信息
-
-### 🔗 相关链接
-- **PyTorch**: https://pytorch.org/
-- **Streamlit**: https://streamlit.io/
-- **RDKit**: https://www.rdkit.org/
-- **化学信息学**: https://en.wikipedia.org/wiki/Cheminformatics
-
-### 📖 学术参考
-- Transformer架构: "Attention Is All You Need"
-- SMILES表示法: Simplified molecular-input line-entry system
-- 消毒副产物: Disinfection byproduct formation
+1. Fork 本项目
+2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
+3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
+4. 推送到分支 (`git push origin feature/AmazingFeature`)
+5. 创建 Pull Request
 
 ## 📄 许可证
 
-本项目采用 MIT 许可证 - 详见 [LICENSE](LICENSE) 文件
+本项目采用 MIT 许可证。详细信息请参阅 [LICENSE](LICENSE) 文件。
 
-## 🤝 致谢
+## 🔗 相关链接
 
-- PyTorch团队提供的深度学习框架
-- Streamlit团队提供的Web应用框架
-- RDKit团队提供的化学计算工具
-- 开源社区的贡献和支持
+- [GitHub Pages演示](https://yourusername.github.io/disinfection-byproduct-prediction/)
+- [部署文档](docs/DEPLOY.md)
+- [问题反馈](https://github.com/yourusername/disinfection-byproduct-prediction/issues)
 
-## 📞 联系方式
+## 📧 联系方式
 
-- **GitHub**: [Halsey-ux](https://github.com/Halsey-ux)
-- **项目地址**: https://github.com/Halsey-ux/dbps_prediction_test_r1
-- **问题反馈**: [创建Issue](https://github.com/Halsey-ux/dbps_prediction_test_r1/issues)
+- 项目维护者: [Your Name](mailto:your.email@example.com)
+- 项目主页: [https://github.com/yourusername/disinfection-byproduct-prediction](https://github.com/yourusername/disinfection-byproduct-prediction)
 
 ---
 
 <div align="center">
-
-**🧪 本地AI助力化学研究，预测更安全的未来 🌍**
-
-[快速开始](#🚀-快速开始) • [使用指南](#💻-使用指南) • [技术架构](#🏗️-技术架构) • [开发贡献](#🎯-开发与贡献)
-
+  <p>🌟 如果这个项目对您有帮助，请给我们一个星标！</p>
+  <p>Made with ❤️ by the Water Treatment AI Team</p>
 </div> 

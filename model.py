@@ -48,7 +48,7 @@ class PositionalEncoding(nn.Module):
         # 提取对应长度的位置编码并扩展到匹配批次大小
         pe_tensor = torch.as_tensor(self.pe)  # 显式转换为tensor类型
         pe_slice = pe_tensor[:seq_len, :].expand(-1, batch_size, -1)
-        return x + pe_slice
+        return x + pe_slice 
 
 
 class ConditionEncoder(nn.Module):

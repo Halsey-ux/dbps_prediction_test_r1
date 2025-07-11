@@ -1,9 +1,8 @@
-# Python编译文件
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
-
-# 分发/打包
+*.so
 .Python
 build/
 develop-eggs/
@@ -20,16 +19,68 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
-# PyTorch模型文件（但允许训练好的模型）
-# *.pth  
-# *.pt
+# PyInstaller
+*.manifest
+*.spec
 
-# 训练生成的文件（云端部署需要这些文件）
-# transformer_model.pth
-# vocabulary.json
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
 
-# 环境配置
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Translations
+*.mo
+*.pot
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+
+# Flask
+instance/
+.webassets-cache
+
+# Scrapy
+.scrapy
+
+# Sphinx documentation
+docs/_build/
+
+# PyBuilder
+target/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+profile_default/
+ipython_config.py
+
+# pyenv
+.python-version
+
+# celery beat schedule file
+celerybeat-schedule
+
+# SageMath parsed files
+*.sage.py
+
+# Environments
 .env
 .venv
 env/
@@ -38,17 +89,47 @@ ENV/
 env.bak/
 venv.bak/
 
-# IDE配置（可选，如果想同步IDE配置就注释掉）
-# .vscode/
-# .idea/
+# Spyder project settings
+.spyderproject
+.spyproject
 
-# 操作系统文件
+# Rope project settings
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Streamlit
+.streamlit/
+
+# macOS
 .DS_Store
+
+# Windows
 Thumbs.db
+ehthumbs.db
+Desktop.ini
 
-# 日志文件
-*.log
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# 临时文件
+# Project specific
+logs/
+temp/
+.temp/
 *.tmp
-*.temp 
+
+# Conda
+.conda/ 
