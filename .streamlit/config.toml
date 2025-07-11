@@ -1,37 +1,48 @@
 [global]
-# 开发模式配置
+# 生产模式配置
 developmentMode = false
-
-# 数据框显示配置
 dataFrameSerialization = "legacy"
 
 [server]
-# 服务器配置
+# Streamlit Cloud服务器配置
 port = 8501
 enableCORS = false
 enableXsrfProtection = false
 maxUploadSize = 200
-
-# 禁用文件监控（生产环境）
 fileWatcherType = "none"
+headless = true
 
 # 云部署优化
-headless = true
+runOnSave = false
+allowRunOnSave = false
 
 [browser]
 # 浏览器配置
 gatherUsageStats = false
+serverAddress = "0.0.0.0"
 
 [theme]
-# 主题配置
+# 消毒副产物预测系统主题
 primaryColor = "#667eea"
 backgroundColor = "#ffffff"
-secondaryBackgroundColor = "#f0f2f6"
+secondaryBackgroundColor = "#f8f9fa"
 textColor = "#262730"
 font = "sans serif"
 
 [client]
-# 客户端配置
+# 客户端配置 - 云部署优化
 caching = true
 displayEnabled = true
-showErrorDetails = false 
+showErrorDetails = false
+toolbarMode = "auto"
+
+[runner]
+# 运行器配置
+magicEnabled = true
+installTracer = false
+fixMatplotlib = true
+
+[logger]
+# 日志配置
+level = "info"
+messageFormat = "%(asctime)s %(message)s" 

@@ -92,24 +92,53 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# 全局变量
+# 全局变量 - Streamlit Cloud优化
 @st.cache_resource
 def load_model():
-    """加载预训练模型"""
+    """加载预训练模型 - 优化版本"""
     model_path = "transformer_model.pth"
     vocab_path = "vocabulary.json"
     
+    # 版本兼容性检查
+    st.write(f"🔍 系统信息: Python {sys.version}")
+    st.write(f"🔍 PyTorch版本: {torch.__version__}")
+    st.write(f"🔍 当前目录: {os.getcwd()}")
+    
     if not os.path.exists(model_path):
+        st.error(f"❌ 模型文件不存在: {model_path}")
         return None, "模型文件不存在，请先训练模型"
     
     if not os.path.exists(vocab_path):
+        st.error(f"❌ 词汇表文件不存在: {vocab_path}")
         return None, "词汇表文件不存在，请先训练模型"
     
     try:
-        predictor = ReactionPredictor(model_path, vocab_path)
+        # 强制使用CPU设备
+        predictor = ReactionPredictor(model_path, vocab_path, device="cpu")
+        st.success("✅ 模型加载成功")
         return predictor, "模型加载成功"
     except Exception as e:
+        st.error(f"❌ 模型加载失败: {str(e)}")
         return None, f"模型加载失败: {str(e)}"
+
+@st.cache_data
+def cached_predict_product(reactant_smiles, pH, disinfectant, max_length, temperature):
+    """缓存的预测函数 - 提高性能"""
+    # 这个函数会被缓存，相同输入会直接返回缓存结果
+    predictor, _ = load_model()
+    if predictor is None:
+        raise Exception("模型未加载")
+    
+    # 设置线程数以优化性能
+    torch.set_num_threads(1)
+    
+    return predictor.predict_product(
+        reactant_smiles=reactant_smiles,
+        pH=pH,
+        disinfectant=disinfectant,
+        max_length=max_length,
+        temperature=temperature
+    )
 
 # 主界面
 def main():
@@ -282,15 +311,17 @@ def main():
                 time.sleep(1)  # 模拟处理时间
                 
                 try:
-                    # 执行预测 (此时模型必须可用)
-                    assert predictor is not None, "模型未正确加载"
-                    predicted_smiles = predictor.predict_product(
+                    # 执行预测 - 使用缓存版本提高性能
+                    start_time = time.time()
+                    predicted_smiles = cached_predict_product(
                         reactant_smiles=reactant_smiles,
                         pH=pH,
                         disinfectant=disinfectant,
                         max_length=max_length,
                         temperature=temperature
                     )
+                    end_time = time.time()
+                    prediction_time = end_time - start_time
                     
                     # 显示结果
                     st.markdown("""
@@ -304,12 +335,13 @@ def main():
                     st.markdown("### 📋 反应摘要")
                     
                     result_data = {
-                        "参数": ["反应物", "产物", "pH值", "消毒剂", "预测时间"],
+                        "参数": ["反应物", "产物", "pH值", "消毒剂", "预测耗时", "预测时间"],
                         "值": [
                             reactant_smiles,
                             predicted_smiles,
                             f"{pH:.1f}",
                             disinfectant,
+                            f"{prediction_time:.2f}秒",
                             datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         ]
                     }
