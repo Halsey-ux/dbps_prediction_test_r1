@@ -1,7 +1,6 @@
 [global]
 # 生产模式配置
 developmentMode = false
-dataFrameSerialization = "legacy"
 
 [server]
 # Streamlit Cloud服务器配置
@@ -31,16 +30,12 @@ font = "sans serif"
 
 [client]
 # 客户端配置 - 云部署优化
-caching = true
-displayEnabled = true
 showErrorDetails = false
 toolbarMode = "auto"
 
 [runner]
 # 运行器配置
 magicEnabled = true
-installTracer = false
-fixMatplotlib = true
 
 [logger]
 # 日志配置

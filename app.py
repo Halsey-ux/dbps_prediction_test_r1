@@ -246,7 +246,7 @@ def main():
         )
         
         # 根据选择设置默认值
-        default_smiles = examples[selected_example] if selected_example != "自定义输入" else "CCO"
+        default_smiles = examples.get(selected_example, "CCO") if selected_example and selected_example != "自定义输入" else "CCO"
         
         # 输入表单
         with st.form("prediction_form"):
@@ -285,7 +285,10 @@ def main():
                 "ozone": "臭氧 (O₃) - 最强氧化性，无残留"
             }
             
-            st.info(disinfectant_info[disinfectant])
+            # 安全获取消毒剂信息
+            disinfectant = disinfectant or "chlorine"  # 确保有默认值
+            info_text = disinfectant_info.get(disinfectant, f"消毒剂类型: {disinfectant}")
+            st.info(info_text)
             
             # 提交按钮
             submitted = st.form_submit_button(
@@ -316,7 +319,7 @@ def main():
                     predicted_smiles = cached_predict_product(
                         reactant_smiles=reactant_smiles,
                         pH=pH,
-                        disinfectant=disinfectant,
+                        disinfectant=disinfectant or "chlorine",
                         max_length=max_length,
                         temperature=temperature
                     )
@@ -340,7 +343,7 @@ def main():
                             reactant_smiles,
                             predicted_smiles,
                             f"{pH:.1f}",
-                            disinfectant,
+                            disinfectant or "chlorine",
                             f"{prediction_time:.2f}秒",
                             datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                         ]
@@ -371,7 +374,7 @@ def main():
                             <p>{}条件下</p>
                             <p>pH {}</p>
                         </div>
-                        """.format(disinfectant, pH), unsafe_allow_html=True)
+                        """.format(disinfectant or "chlorine", pH), unsafe_allow_html=True)
                     
                     with col_product:
                         st.markdown("""
@@ -397,14 +400,17 @@ def main():
                     
                     fig = go.Figure()
                     
-                    values = condition_values[disinfectant] + [condition_values[disinfectant][0]]
+                    # 安全获取条件值
+                    safe_disinfectant = disinfectant or "chlorine"
+                    current_values = condition_values.get(safe_disinfectant, [5, 5, 5, 5, 5])
+                    values = current_values + [current_values[0]]
                     categories_loop = categories + [categories[0]]
                     
                     fig.add_trace(go.Scatterpolar(
                         r=values,
                         theta=categories_loop,
                         fill='toself',
-                        name=disinfectant.capitalize(),
+                        name=safe_disinfectant.capitalize(),
                         line_color='rgb(102, 126, 234)'
                     ))
                     
@@ -415,7 +421,7 @@ def main():
                                 range=[0, 10]
                             )),
                         showlegend=True,
-                        title=f"{disinfectant.capitalize()}特性分析",
+                        title=f"{safe_disinfectant.capitalize()}特性分析",
                         height=400
                     )
                     
@@ -429,7 +435,7 @@ def main():
 反应物SMILES: {reactant_smiles}
 产物SMILES: {predicted_smiles}
 pH值: {pH}
-消毒剂: {disinfectant}
+消毒剂: {disinfectant or "chlorine"}
 预测时间: {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}
 模型温度: {temperature}
 最大长度: {max_length}
