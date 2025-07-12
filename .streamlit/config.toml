@@ -4,21 +4,14 @@ developmentMode = false
 
 [server]
 # Streamlit Cloud服务器配置
-port = 8501
 enableCORS = false
 enableXsrfProtection = false
 maxUploadSize = 200
-fileWatcherType = "none"
 headless = true
-
-# 云部署优化
-runOnSave = false
-allowRunOnSave = false
 
 [browser]
 # 浏览器配置
 gatherUsageStats = false
-serverAddress = "0.0.0.0"
 
 [theme]
 # 消毒副产物预测系统主题
@@ -39,5 +32,4 @@ magicEnabled = true
 
 [logger]
 # 日志配置
-level = "info"
-messageFormat = "%(asctime)s %(message)s" 
+level = "info" 

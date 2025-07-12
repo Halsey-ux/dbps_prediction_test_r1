@@ -22,4 +22,7 @@ typing-extensions>=4.0.0
 # 额外依赖以确保兼容性
 protobuf<4.0.0
 pillow>=9.0.0
-requests>=2.25.0 
+requests>=2.25.0
+
+# 日志和工具
+loguru>=0.5.0 
